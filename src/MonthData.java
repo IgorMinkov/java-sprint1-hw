@@ -25,6 +25,9 @@ class MonthData {
         return maxSteps;
     }
 
+    // У меня не воспроизвелась ошибка из ревью. При аналогичных вводных выдавало лучшую серию - 1 день.
+    // Сделал скриншоты с подтверждением, исправлял вслепую.
+
     int bestSeries(int goalByStepsPerDay) { // максимальное количество подряд идущих дней с выполненной целью
         int currentSeries = 0;
         int finalSeries = 0;
@@ -32,13 +35,14 @@ class MonthData {
             // currentSeries = (days[i] >= goalByStepsPerDay) ? currentSeries + 1 : 0; // на QA-вебинаре показывали
             if (days[i] >= goalByStepsPerDay) { currentSeries++;
             } else {
-                currentSeries = 0;
+                if (currentSeries > finalSeries) {
+                    finalSeries = currentSeries; // поиск максимальной серии
+            } else {
+                    currentSeries = 0;
+                }
             }
-            if (currentSeries > finalSeries) {
-                finalSeries = currentSeries; // поиск максимальной серии
-            }
-
         }
         return finalSeries;
     }
+
 }
